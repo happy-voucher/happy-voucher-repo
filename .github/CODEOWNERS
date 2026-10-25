@@ -1,6 +1,8 @@
-# Opiekunowie obszarów dokumentacji (docs/README.md, ADR-005).
+# Opiekunowie obszarów (docs/README.md, ADR-005).
 # Zmiana w obszarze automatycznie prosi opiekuna o przegląd PR.
-# Ostatnia pasująca reguła wygrywa.
+# Ostatnia pasująca reguła wygrywa, więc reguła domyślna jest na początku.
+
+*                                   @JSikoraVistula
 
 /README.md                          @JSikoraVistula @Ksionk
 /docs/README.md                     @JSikoraVistula
@@ -12,3 +14,4 @@
 /docs/06-spotkania-i-decyzje/       @JSikoraVistula
 /docs/07-testy-i-odbior/            @Mikson098
 /docs/08-materialy/                 @Ksionk
+/.github/                           @Ksionk @JSikoraVistula
