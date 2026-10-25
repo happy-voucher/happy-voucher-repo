@@ -2,13 +2,13 @@
 
 # Słownik pojęć i aktorzy
 
-> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-01 Wymagania i reguły biznesowe voucherów, zadanie T1
+> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-01 Wymagania i reguły biznesowe voucherów (#72)](https://github.com/happy-voucher/happy-voucher-repo/issues/72), zadanie T1
 >
 > **Status:** szkic do przeglądu (D-01 T4 BE), zatwierdzenie na spotkaniu D-01 T5 (KP)
 
 Ta strona ustala wspólne słownictwo zespołu D. Tych samych słów używamy w issue, dokumentacji, kodzie i rozmowach z zespołami A, B i C. Jeśli ktoś w rozmowie rozumie pojęcie inaczej niż tutaj, poprawiamy tę stronę albo rozmowę, a nie tworzymy synonimu.
 
-Kolumna „Nazwa w kodzie” to propozycja dla BE i specyfikacji API (D-04, D-05). Ostateczne nazwy tabel i pól ustala schemat bazy w [model-danych.md](../05-projekt-rozwiazania/model-danych.md). Encje modelu pojęciowego z D-02 są oznaczone gwiazdką (★).
+Kolumna „Nazwa w kodzie” to propozycja dla BE i specyfikacji API (D-04, D-05). Ostateczne nazwy tabel i pól ustala schemat w plikach `.volt` (D-05), opisany w [model-danych.md](../05-projekt-rozwiazania/model-danych.md). Encje modelu pojęciowego z D-02 są oznaczone gwiazdką (★).
 
 ## Aktorzy
 
@@ -16,9 +16,10 @@ Kolumna „Nazwa w kodzie” to propozycja dla BE i specyfikacji API (D-04, D-05
 
 | Aktor | Kto to jest | Gdzie pracuje | Co robi w systemie D |
 | :- | :- | :- | :- |
-| **Klient** | Osoba, która kupuje voucher | Sklep www | Przegląda katalog, składa zamówienie, opłaca je (płatność symulowana) i dostaje kody voucherów |
-| **Posiadacz vouchera** | Osoba, która zna kod vouchera: klient albo obdarowany | Sklep www | Ogląda voucher i pozostałe usługi, wybiera termin i rezerwuje usługę u partnera przez D |
-| **Operator D** | Pracownik obsługi firmy D | Panel obsługi (guigui) | Rejestruje partnerów i ich klucze, tworzy i publikuje oferty, wyszukuje vouchery, przegląda historię i kolejkę spraw, przygotowuje rozliczenia |
+| **Klient** | Osoba, która kupuje voucher | Sklep www (`/`) | Przegląda katalog, składa zamówienie, opłaca je (płatność symulowana) i dostaje kody voucherów. Może zalogować się przez Firebase i widzieć listę swoich voucherów |
+| **Posiadacz vouchera** | Osoba, która zna kod vouchera: klient albo obdarowany | Sklep www (`/`) | Ogląda voucher i pozostałe usługi, wybiera termin i rezerwuje usługę u partnera przez D |
+| **Operator D** | Pracownik obsługi firmy D, konto Firebase z rolą `operator` | Panel operatora (`/panel`) | Tworzy i publikuje oferty, wyszukuje vouchery, przegląda historię i kolejkę spraw, przygotowuje rozliczenia z eksportem CSV |
+| **Administrator D** | Pracownik D, konto Firebase z rolą `admin` | Panel operatora (`/panel`) | Wszystko, co operator, oraz rejestracja partnerów i zarządzanie ich kluczami API |
 
 ### Partnerzy (systemy zewnętrzne z własnym API)
 
@@ -35,6 +36,7 @@ Każdy partner korzysta z API D: weryfikuje kod, blokuje i zwalnia pozycje, potw
 
 | Aktor | Co robi |
 | :- | :- |
+| **Firebase Authentication** | Logowanie klientów, operatorów i administratorów (e-mail i hasło albo konto Google). Aplikacja dołącza token ID do żądań, a serwer D sprawdza token i rolę |
 | **Symulator płatności** | Zwraca wynik płatności wybrany przy testach: sukces, odmowę albo przekroczenie czasu. Prawdziwych płatności nie ma |
 | **Harmonogram zadań** | Uruchamia zadania cykliczne: synchronizację usług partnerów co godzinę, wygaszanie voucherów raz na dobę, sprawdzanie rezerwacji „do wyjaśnienia” |
 
@@ -68,7 +70,7 @@ Symulator API partnerów (`cmd/partnersim`, D-09) nie jest aktorem. To narzędzi
 | **Okres ważności** | Liczba dni ważności zapisana w ofercie | `validity_days` |
 | **Termin ważności** | Ostatni dzień, w którym voucher jest ważny. Liczymy go z okresu ważności oferty od dnia opłacenia | `valid_until` |
 | **Obdarowany** | Osoba, której klient daje voucher. System zna najwyżej jej imię | `recipient_name` |
-| **Strona vouchera** | Widok w sklepie, w którym posiadacz po podaniu kodu i e-maila widzi status, termin ważności i pozycje z terminami rezerwacji | `voucher_page` |
+| **Strona vouchera** | Widok w sklepie ze statusem, terminem ważności i pozycjami z terminami rezerwacji. Zalogowany klient widzi listę swoich voucherów, a niezalogowany posiadacz podaje kod i e-mail | `voucher_page` |
 
 ### Rezerwacja, blokada i realizacja
 
@@ -95,6 +97,6 @@ Symulator API partnerów (`cmd/partnersim`, D-09) nie jest aktorem. To narzędzi
 | **Marża D** | Cena oferty minus suma kwot dla partnerów | `margin` |
 | **Rozliczenie** ★ | Zestawienie pozycji zrealizowanych przez partnera w miesiącu kalendarzowym z sumą kwot. O miesiącu decyduje data realizacji w strefie Europe/Warsaw | `settlement` |
 | **Kolejka spraw** | Lista spraw do wyjaśnienia przez operatora: rezerwacje „do wyjaśnienia” i nieudane synchronizacje | `case_queue` |
-| **Historia vouchera** | Zapis każdej zmiany stanu pozycji: kto, kiedy, z jakiego stanu na jaki i w wyniku jakiej operacji | `voucher_event` |
+| **Historia vouchera** | Zapis każdej zmiany stanu pozycji i każdej zmiany wykonanej w panelu: kto (partner albo UID operatora), kiedy, z jakiego stanu na jaki i w wyniku jakiej operacji | `voucher_event` |
 
 Statusy vouchera i stany pozycji oraz przejścia między nimi opisuje [stany-vouchera-i-pozycji.md](stany-vouchera-i-pozycji.md).

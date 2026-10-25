@@ -2,7 +2,7 @@
 
 # Raporty z testów
 
-> **Opiekun:** Mikołaj Liszewski (TM) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-24, D-25
+> **Opiekun:** Mikołaj Liszewski (TM) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-24 (#106)](https://github.com/happy-voucher/happy-voucher-repo/issues/106), [D-25 (#107)](https://github.com/happy-voucher/happy-voucher-repo/issues/107)
 
 Tu trafiają raporty z testów integracyjnych z zespołami A, B, C i raport końcowy z odbioru (D-25 T5). Najnowszy raport jest na górze listy.
 

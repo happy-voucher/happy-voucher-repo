@@ -27,7 +27,7 @@ Projekt D zależy od trzech innych zespołów (A, B, C), które budują swoje sy
 
 ## Wdrożenie
 
-- Pole Iteration jako sprint na [tablicy projektu](https://github.com/orgs/happy-voucher/projects/10/views/1).
+- Pole Iteration jako sprint na [tablicy „Main”](https://github.com/orgs/happy-voucher/projects).
 - Plan sprintów w [04-plan-prac](../../04-plan-prac/README.md).
 - Limit 2 zadań w statusie „W trakcie” w [zasadach pracy](../../02-zespol-i-wspolpraca.md#zasady-pracy).
 

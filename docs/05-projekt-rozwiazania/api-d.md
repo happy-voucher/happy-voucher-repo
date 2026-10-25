@@ -2,7 +2,7 @@
 
 # API D dla partnerów
 
-> **Opiekun:** Szymon Piechutowski (BE) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-18 Rejestrowanie wykorzystania pozycji [link po założeniu issue], D-04 Specyfikacja API D
+> **Opiekun:** Szymon Piechutowski (BE) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-18 Rejestrowanie wykorzystania pozycji (#100)](https://github.com/happy-voucher/happy-voucher-repo/issues/100), [D-04 Specyfikacja API D (#85)](https://github.com/happy-voucher/happy-voucher-repo/issues/85)
 >
 > **Status:** szkic. Ścieżki i nazwy kodów błędów to propozycja do specyfikacji OpenAPI w `api/openapi.yaml` (D-04) i do kontraktu (D-03)
 

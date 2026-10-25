@@ -4,7 +4,7 @@
 
 > **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** —
 
-To strona nadrzędna całej dokumentacji. Dokumentację trzymamy w repozytorium, a nie w wiki, żeby zmieniała się razem z kodem i przechodziła przegląd w pull requestach ([ADR-006](06-spotkania-i-decyzje/decyzje/ADR-006-organizacja-dokumentacji.md)). Bieżąca praca (historyjki, zadania, błędy, dyskusje) jest w GitHub Issues i na [tablicy projektu](https://github.com/orgs/happy-voucher/projects/10/views/1). Tutaj jest to, co opisuje system i obowiązuje dłużej.
+To strona nadrzędna całej dokumentacji. Dokumentację trzymamy w repozytorium, a nie w wiki, żeby zmieniała się razem z kodem i przechodziła przegląd w pull requestach ([ADR-006](06-spotkania-i-decyzje/decyzje/ADR-006-organizacja-dokumentacji.md)). Bieżąca praca (historyjki, zadania, błędy, dyskusje) jest w GitHub Issues i na [tablicy „Main”](https://github.com/orgs/happy-voucher/projects). Tutaj jest to, co opisuje system i obowiązuje dłużej.
 
 ## Obszary
 

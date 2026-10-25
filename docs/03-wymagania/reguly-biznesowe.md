@@ -2,7 +2,7 @@
 
 # Reguły biznesowe
 
-> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-01 Wymagania i reguły biznesowe voucherów, zadanie T2
+> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-01 Wymagania i reguły biznesowe voucherów (#72)](https://github.com/happy-voucher/happy-voucher-repo/issues/72), zadanie T2
 >
 > **Status:** szkic do przeglądu (D-01 T4 BE), zatwierdzenie na spotkaniu D-01 T5 (KP)
 
@@ -61,7 +61,7 @@ Reguły opisują, co system D musi zapewnić niezależnie od tego, jak to zaprog
 
 | Nr | Reguła | Źródło |
 | :- | :- | :- |
-| SYN-01 | Operator rejestruje partnera z adresem API i kluczami. | D-10 |
+| SYN-01 | Administrator rejestruje partnera z adresem API i kluczami. | D-10, D-23 |
 | SYN-02 | D pobiera usługi każdego partnera przez jego API co godzinę i na żądanie operatora. | D-10 |
 | SYN-03 | Nowe i zmienione usługi są zapisywane. Usługi nieobecne w odpowiedzi partnera są oznaczane jako nieaktywne, a nie usuwane. | D-10 |
 | SYN-04 | Błąd partnera nie kasuje wcześniej pobranych danych. Jest zapisany w historii synchronizacji i trafia do kolejki spraw. | D-10, D-23 |
@@ -90,7 +90,7 @@ Reguły opisują, co system D musi zapewnić niezależnie od tego, jak to zaprog
 | KOD-04 | Przy wydaniu vouchera z każdej pozycji oferty powstaje tyle pozycji vouchera, ile sztuk tej usługi jest w pozycji oferty. Każda pozycja vouchera dostaje stan **dostępna**, właściciela i kwotę dla partnera. | D-14, założenie (P-12) |
 | KOD-05 | Voucher i wszystkie jego pozycje powstają w jednej transakcji. | D-14 |
 | KOD-06 | Po udanej płatności klient widzi kody na stronie po zakupie. | D-15 |
-| KOD-07 | Posiadacz ogląda voucher po podaniu kodu i adresu e-mail z zamówienia. Widzi status, termin ważności oraz każdą pozycję z jej stanem i terminem rezerwacji. | D-15, założenie (P-03) |
+| KOD-07 | Zalogowany klient widzi listę swoich voucherów. Niezalogowany posiadacz ogląda voucher po podaniu kodu i adresu e-mail z zamówienia. W obu przypadkach widać status, termin ważności oraz każdą pozycję z jej stanem i terminem rezerwacji. | D-15, założenie (P-03) |
 | KOD-08 | Błędny e-mail daje taki sam komunikat jak nieznany kod. Po 10 nieudanych próbach z jednego adresu kolejne próby są odrzucane przez 15 minut. | D-15 |
 
 ## WAZ Ważność
@@ -113,7 +113,7 @@ Reguły opisują, co system D musi zapewnić niezależnie od tego, jak to zaprog
 | POZ-03 | Pozycja ma zawsze dokładnie jeden stan: dostępna, zarezerwowana, zrealizowana, wygasła albo anulowana. Dozwolone przejścia opisuje [stany-vouchera-i-pozycji.md](stany-vouchera-i-pozycji.md). | D-02 |
 | POZ-04 | Zrealizowana, wygasła i anulowana to stany końcowe. Wyjątkiem może być cofnięcie realizacji. | D-02, założenie (P-14) |
 | POZ-05 | Statusu vouchera nie ustawia się ręcznie. Zawsze wynika ze stanów jego pozycji. | D-18 |
-| POZ-06 | Każda zmiana stanu pozycji trafia do historii vouchera: kto, kiedy, z jakiego stanu na jaki i w wyniku jakiej operacji. | D-18, D-23 |
+| POZ-06 | Każda zmiana stanu pozycji trafia do historii vouchera: kto, kiedy, z jakiego stanu na jaki i w wyniku jakiej operacji. Zmiana wykonana w panelu jest zapisana z UID operatora. | D-18, D-23 |
 | POZ-07 | Voucher anuluje operator. Wszystkie niezrealizowane pozycje przechodzą wtedy w stan **anulowana**, a D anuluje ich rezerwacje u partnerów. Zrealizowane pozycje zostają i są rozliczane. | Założenie (P-13) |
 
 ## BLK Weryfikacja i blokada
@@ -173,28 +173,29 @@ Reguły opisują, co system D musi zapewnić niezależnie od tego, jak to zaprog
 | Nr | Reguła | Źródło |
 | :- | :- | :- |
 | UPR-01 | Partner uwierzytelnia się w API D kluczem API, a D przechowuje tylko skrót klucza. Żądanie bez klucza albo z błędnym kluczem dostaje 401. | D-08 |
-| UPR-02 | Operator loguje się do panelu obsługi, a sesja wygasa po 8 godzinach. Panel korzysta wyłącznie z API administracyjnego. | D-23 |
-| UPR-03 | Operator zarządza partnerami i ich kluczami oraz ofertami. Przegląda też vouchery, ich historię, kolejkę spraw i rozliczenia. | D-10, D-11, D-22, D-23 |
-| UPR-04 | Posiadacz vouchera nie ma konta. Dostęp do vouchera daje kod razem z adresem e-mail z zamówienia. | D-15, założenie (P-03) |
+| UPR-02 | Klienci, operatorzy i administratorzy logują się przez Firebase (e-mail i hasło albo konto Google). Żądanie z nieważnym tokenem Firebase dostaje 401. Do panelu wchodzi tylko konto z rolą `operator` albo `admin`, a konto bez roli dostaje 403. | D-08, D-23, D-26 |
+| UPR-03 | Operator zarządza ofertami. Przegląda też vouchery, ich historię, kolejkę spraw i rozliczenia. Partnerów i klucze API widzi i zmienia tylko administrator. Panel korzysta wyłącznie z API administracyjnego. | D-10, D-11, D-22, D-23 |
+| UPR-04 | Konto klienta nie jest wymagane. Bez logowania dostęp do vouchera daje kod razem z adresem e-mail z zamówienia. | D-15, założenie (P-03) |
 
 ### Kto co może
 
 ✓ oznacza „może”, a „—” oznacza „nie może”.
 
-| Operacja | Klient lub posiadacz | Partner (właściciel pozycji) | Koordynator pakietu (C) | Operator |
-| :- | :-: | :-: | :-: | :-: |
-| Przeglądanie katalogu | ✓ | — | — | ✓ |
-| Zamówienie i płatność | ✓ | — | — | — |
-| Podgląd vouchera | ✓ kod + e-mail | — | — | ✓ |
-| Wybór terminu i rezerwacja przez D | ✓ | — | — | — |
-| Weryfikacja kodu | — | ✓ własne pozycje | ✓ cały pakiet | — |
-| Blokada i zwolnienie pozycji | — | ✓ | tylko własne | — |
-| Realizacja pozycji | — | ✓ | tylko własne | — |
-| Własne zestawienie przez API | — | ✓ | ✓ | — |
-| Anulowanie rezerwacji, anulowanie vouchera, cofnięcie realizacji | — | — | — | ✓ |
-| Oferty, partnerzy i klucze API | — | — | — | ✓ |
-| Wyszukiwanie, historia, kolejka spraw | — | — | — | ✓ |
-| Rozliczenia wszystkich partnerów, eksport CSV | — | — | — | ✓ |
+| Operacja | Klient lub posiadacz | Partner (właściciel pozycji) | Koordynator pakietu (C) | Operator | Administrator |
+| :- | :-: | :-: | :-: | :-: | :-: |
+| Przeglądanie katalogu | ✓ | — | — | ✓ | ✓ |
+| Zamówienie i płatność | ✓ | — | — | — | — |
+| Podgląd vouchera | ✓ po zalogowaniu albo kod + e-mail | — | — | ✓ | ✓ |
+| Wybór terminu i rezerwacja przez D | ✓ | — | — | — | — |
+| Weryfikacja kodu | — | ✓ własne pozycje | ✓ cały pakiet | — | — |
+| Blokada i zwolnienie pozycji | — | ✓ | tylko własne | — | — |
+| Realizacja pozycji | — | ✓ | tylko własne | — | — |
+| Własne zestawienie przez API | — | ✓ | ✓ | — | — |
+| Anulowanie rezerwacji, anulowanie vouchera, cofnięcie realizacji | — | — | — | ✓ | ✓ |
+| Oferty | — | — | — | ✓ | ✓ |
+| Partnerzy i klucze API | — | — | — | — | ✓ |
+| Wyszukiwanie, historia, kolejka spraw | — | — | — | ✓ | ✓ |
+| Rozliczenia wszystkich partnerów, eksport CSV | — | — | — | ✓ | ✓ |
 
 ## WSP Zasady wspólne API
 
@@ -219,7 +220,7 @@ Pytania do prowadzącego i partnerów zbiera koordynator (D-01 T3) i wpisuje odp
 | :- | :- | :- | :- | :- | :- |
 | P-01 | Czy partner może potwierdzić realizację po końcu ważności, jeśli usługa odbyła się jeszcze w terminie? | Nie. Partner potwierdza realizację w dniu usługi | REA-03, WAZ-03 | Zespoły A, B, C | |
 | P-02 | Czy wygasłe, niezrealizowane pozycje są rozliczane z partnerem? | Nie | ROZ-06 | Zespoły A, B, C (D-22 T5) | |
-| P-03 | Którym adresem e-mail posiadacz potwierdza dostęp do vouchera, skoro obdarowany może nie znać e-maila klienta? | E-mailem z zamówienia. Klient przekazuje obdarowanemu kod razem z tym adresem | KOD-07, UPR-04 | Zespół D, prowadzący | |
+| P-03 | Które vouchery są „swoje” dla zalogowanego klienta i którym adresem e-mail niezalogowany posiadacz potwierdza dostęp, skoro obdarowany może nie znać e-maila klienta? | Zalogowany klient widzi vouchery z zamówień złożonych na adres e-mail jego konta. Niezalogowany podaje e-mail z zamówienia, a klient przekazuje obdarowanemu kod razem z tym adresem | KOD-07, UPR-04 | Zespół D, prowadzący | |
 | P-04 | Co dzieje się z ofertami i wydanymi voucherami, gdy usługa partnera stanie się nieaktywna? | Oferty są wycofywane z katalogu, wydane vouchery zostają bez zmian, operator dostaje sprawę | OFE-08 | Zespoły A, B, C | |
 | P-05 | Kto pilnuje, żeby masaż i trening w pakiecie mieściły się w terminie pobytu? | Hotel C | REZ-11 | Zespół C | |
 | P-06 | Ile sztuk można kupić w jednym zamówieniu? | Od 1 do 10 | ZAM-03 | Zespół D | |

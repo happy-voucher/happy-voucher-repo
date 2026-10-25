@@ -2,7 +2,7 @@
 
 # Model danych
 
-> **Opiekun:** Szymon Piechutowski (BE) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-02 T1 model pojęciowy (AN), D-05 schemat bazy i migracje (BE), D-05 T5 opis tabel (AN)
+> **Opiekun:** Szymon Piechutowski (BE) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-02 (#83)](https://github.com/happy-voucher/happy-voucher-repo/issues/83) T1 model pojęciowy (AN), [D-05 (#86)](https://github.com/happy-voucher/happy-voucher-repo/issues/86) schemat bazy i migracje (BE) oraz T5 opis tabel (AN)
 >
 > **Status:** szkic modelu pojęciowego. Schemat fizyczny powstanie w D-05
 
@@ -44,10 +44,13 @@ erDiagram
 
 ## Schemat fizyczny
 
+Schemat deklarujemy w plikach `.volt`. `volt check` sprawdza deklaracje, a `volt gen` generuje z nich modele, zapytania i migracje dla SQLite.
+
 [uzupełnia BE w D-05: tabele, klucze, indeksy i ograniczenia, opis tabela po tabeli i diagram]
 
 Schemat musi spełniać kryteria D-05:
+- schemat w plikach `.volt` odwzorowuje model pojęciowy z D-02, a `volt check` przechodzi,
 - kod vouchera ma ograniczenie UNIQUE,
-- pozycja vouchera nie może mieć dwóch aktywnych wykorzystań (częściowy indeks UNIQUE),
+- pozycja vouchera nie może mieć dwóch aktywnych wykorzystań,
 - klucze obce są włączone, a kwoty są liczbami całkowitymi w groszach,
-- migracje uruchamiają się na pustej bazie przy starcie serwera i są idempotentne.
+- migracje uruchamiają się przy starcie serwera na pustej bazie i na bazie z danymi.

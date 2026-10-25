@@ -1,6 +1,6 @@
 # Happy Voucher: system D
 
-> **Opiekun:** Jakub Sikora (KP), instrukcja uruchomienia: Jakub Barej (DO) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-07 Repozytorium, CI i uruchamianie
+> **Opiekun:** Jakub Sikora (KP), instrukcja uruchomienia: Jakub Barej (DO) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-07 Repozytorium, CI i uruchamianie (#87)](https://github.com/happy-voucher/happy-voucher-repo/issues/87)
 
 System D sprzedaje i obsługuje vouchery na usługi trzech partnerów: gabinetu masażu (A), studia fitness (B) i hotelu (C). Klient kupuje w D voucher na usługę albo pakiet, rezerwuje terminy u partnerów, a partnerzy sprawdzają i realizują vouchery przez API D. D rozlicza się potem z partnerami.
 
@@ -20,9 +20,10 @@ Projekt zespołowy, grupa zajęciowa 2. Pracujemy w uproszczonym Scrumie w dwuty
 
 | Część | Technologia | Dla kogo |
 | :- | :- | :- |
-| Serwer i API D | Go (`net/http`), baza SQLite z migracjami | Partnerzy A, B, C, sklep, panel |
-| Sklep www | Szablony `html/template`, samodzielne pliki bez CDN | Klient i posiadacz vouchera |
-| Panel obsługi | Aplikacja desktopowa w guigui, korzysta tylko z API administracyjnego | Operator D |
+| Serwer i API D | Go, trasy i schemat bazy w plikach `.volt` (`volt gen`, `volt check`), baza SQLite | Partnerzy A, B, C, sklep, panel |
+| Sklep www | Next.js z Tailwind CSS (`/`), strony renderowane po stronie serwera | Klient i posiadacz vouchera |
+| Panel operatora | Next.js (`/panel`), korzysta tylko z API administracyjnego | Operator i administrator D |
+| Logowanie | Firebase Authentication: e-mail i hasło albo konto Google | Klienci, operatorzy i administratorzy |
 | Symulator partnerów | `cmd/partnersim`, tryby `ok`, `conflict`, `full`, `down`, `slow` | Zespół D, testy |
 
 Szczegóły są w [projekcie rozwiązania](docs/05-projekt-rozwiazania/README.md).
@@ -33,7 +34,7 @@ System jest w budowie. Instrukcję uruchomienia serwera, symulatora i panelu dop
 
 ## Linki
 
-- [Tablica projektu w GitHub Projects](https://github.com/orgs/happy-voucher/projects/10/views/1)
+- [Tablica „Main” w GitHub Projects](https://github.com/orgs/happy-voucher/projects) (widoczna dla członków organizacji)
 - [Dokumentacja: indeks](docs/README.md)
 - [Rejestr decyzji zespołu](docs/06-spotkania-i-decyzje/README.md)
 - [Opis API D dla partnerów](docs/05-projekt-rozwiazania/api-d.md)

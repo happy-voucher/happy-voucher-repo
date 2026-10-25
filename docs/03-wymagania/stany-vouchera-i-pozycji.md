@@ -2,7 +2,7 @@
 
 # Stany vouchera i pozycji
 
-> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-02 Model pojęciowy danych i przypadki testowe, zadanie T2
+> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-02 Model pojęciowy danych i przypadki testowe (#83)](https://github.com/happy-voucher/happy-voucher-repo/issues/83), zadanie T2
 >
 > **Status:** szkic. Z tej strony korzystają przypadki testowe (D-02 T3 TM, D-02 T4 TA)
 

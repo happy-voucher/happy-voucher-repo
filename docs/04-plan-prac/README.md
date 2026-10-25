@@ -4,7 +4,7 @@
 
 > **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** —
 
-Pracujemy w dwutygodniowych sprintach ([ADR-001](../06-spotkania-i-decyzje/decyzje/ADR-001-sposob-organizacji-pracy.md)). Sprint to pole Iteration na [tablicy projektu](https://github.com/orgs/happy-voucher/projects/10/views/1). Każdy sprint ma tu własną stronę z celem, historyjkami i podsumowaniem.
+Pracujemy w dwutygodniowych sprintach ([ADR-001](../06-spotkania-i-decyzje/decyzje/ADR-001-sposob-organizacji-pracy.md)). Sprint to pole Iteration na [tablicy „Main”](https://github.com/orgs/happy-voucher/projects). Każdy sprint ma tu własną stronę z celem, historyjkami i podsumowaniem.
 
 ## Plan sprintów
 
@@ -17,7 +17,9 @@ Pracujemy w dwutygodniowych sprintach ([ADR-001](../06-spotkania-i-decyzje/decyz
 
 Razem 112 punktów w 25 historyjkach.
 
-W sprintach 1 i 2 tester manualny przygotowuje przypadki testowe i testuje przyrosty. Frontend w sprincie 1 przygotowuje makiety sklepu i szkielet panelu guigui, żeby w sprincie 2 od razu podpiąć API.
+Historyjka [D-26 Szkielet Next.js i logowanie przez Firebase (#90)](https://github.com/happy-voucher/happy-voucher-repo/issues/90) doszła po przygotowaniu planu. Zależy od D-07 i D-08 ze sprintu 1 i blokuje D-12, D-13, D-15 i D-23, więc musi wejść najpóźniej do sprintu 2. Szacunek: [uzupełnijcie].
+
+W sprintach 1 i 2 tester manualny przygotowuje przypadki testowe i testuje przyrosty. Frontend w sprincie 1 przygotowuje makiety sklepu i panelu, żeby w sprincie 2 od razu podpiąć API.
 
 ## Kolejność
 

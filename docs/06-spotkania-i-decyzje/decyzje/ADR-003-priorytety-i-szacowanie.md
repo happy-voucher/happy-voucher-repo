@@ -27,7 +27,7 @@ Musimy ustalić, kto decyduje o kolejności prac i jak oceniamy wielkość histo
 
 ## Wdrożenie
 
-- Pola Priorytet i Szacunek na [tablicy projektu](https://github.com/orgs/happy-voucher/projects/10/views/1).
+- Pola Priorytet i Szacunek na [tablicy „Main”](https://github.com/orgs/happy-voucher/projects).
 - Skala szacowania i historyjka wzorcowa D-14 w [planie prac](../../04-plan-prac/README.md#skala-szacowania).
 
 ## Uczestnicy i ich wkład

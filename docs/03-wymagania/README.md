@@ -2,7 +2,7 @@
 
 # Wymagania
 
-> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-01 Wymagania i reguły biznesowe voucherów, D-02 Model pojęciowy danych i przypadki testowe
+> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-01 Wymagania i reguły biznesowe voucherów (#72)](https://github.com/happy-voucher/happy-voucher-repo/issues/72), [D-02 Model pojęciowy danych i przypadki testowe (#83)](https://github.com/happy-voucher/happy-voucher-repo/issues/83)
 
 Ten obszar opisuje, **co** system D ma robić i według jakich zasad: pojęcia, aktorów, reguły biznesowe i stany vouchera. Jak to zbudujemy, opisuje [projekt rozwiązania](../05-projekt-rozwiazania/README.md). Na te strony powołują się kryteria akceptacji historyjek, testy i ekrany.
 
@@ -17,20 +17,20 @@ Ten obszar opisuje, **co** system D ma robić i według jakich zasad: pojęcia, 
 
 ## Epiki
 
-Reguły odnoszą się do historyjek z backlogu. Linki do issue dodamy, gdy epiki i historyjki zostaną założone na GitHubie.
+Reguły odnoszą się do historyjek z backlogu. Numery historyjek (D-01 do D-26) są takie same jak w tytułach issue na GitHubie. Historyjki są sub-issues swoich epików.
 
 | Epik | Cel |
 | :- | :- |
-| D-E0 Analiza i wymagania | Cały zespół rozumie, co ma powstać |
-| D-E1 Kontrakt integracji z A, B, C | Cztery zespoły mają jeden uzgodniony sposób komunikacji |
-| D-E2 Baza danych | Spójny schemat SQLite, na którym pracują wszystkie moduły |
-| D-E3 Infrastruktura i szkielet aplikacji | Każdy może uruchomić i przetestować system w minutę |
-| D-E4 Katalog usług i ofert | Klient widzi aktualne vouchery zbudowane z usług A, B i C |
-| D-E5 Sprzedaż i wydawanie voucherów | Klient kupuje voucher online i od razu dostaje kod |
-| D-E6 API D: weryfikacja i realizacja | Partner weryfikuje kod, blokuje pozycję i potwierdza realizację, a usługa jest wykorzystana dokładnie raz |
-| D-E7 Rezerwacja usług u partnerów | Posiadacz vouchera rezerwuje termin u partnera z poziomu D |
-| D-E8 Rozliczenia i panel obsługi | D rozlicza się z partnerami, a operator wyjaśnia sprawy klientów |
-| D-E9 Testy integracyjne i odbiór | Scenariusz wspólny działa z prawdziwymi partnerami, także w sytuacjach błędnych |
+| [D-E0 Analiza i wymagania (#71)](https://github.com/happy-voucher/happy-voucher-repo/issues/71) | Cały zespół rozumie, co ma powstać |
+| [D-E1 Kontrakt integracji z A, B, C (#74)](https://github.com/happy-voucher/happy-voucher-repo/issues/74) | Cztery zespoły mają jeden uzgodniony sposób komunikacji |
+| [D-E2 Baza danych (#75)](https://github.com/happy-voucher/happy-voucher-repo/issues/75) | Spójny schemat SQLite, na którym pracują wszystkie moduły |
+| [D-E3 Infrastruktura i szkielet aplikacji (#76)](https://github.com/happy-voucher/happy-voucher-repo/issues/76) | Każdy może uruchomić i przetestować system w minutę |
+| [D-E4 Katalog usług i ofert (#77)](https://github.com/happy-voucher/happy-voucher-repo/issues/77) | Klient widzi aktualne vouchery zbudowane z usług A, B i C |
+| [D-E5 Sprzedaż i wydawanie voucherów (#78)](https://github.com/happy-voucher/happy-voucher-repo/issues/78) | Klient kupuje voucher online i od razu dostaje kod |
+| [D-E6 API D: weryfikacja i realizacja (#79)](https://github.com/happy-voucher/happy-voucher-repo/issues/79) | Partner weryfikuje kod, blokuje pozycję i potwierdza realizację, a usługa jest wykorzystana dokładnie raz |
+| [D-E7 Rezerwacja usług u partnerów (#80)](https://github.com/happy-voucher/happy-voucher-repo/issues/80) | Posiadacz vouchera rezerwuje termin u partnera z poziomu D |
+| [D-E8 Rozliczenia i panel obsługi (#81)](https://github.com/happy-voucher/happy-voucher-repo/issues/81) | D rozlicza się z partnerami, a operator wyjaśnia sprawy klientów |
+| [D-E9 Testy integracyjne i odbiór (#82)](https://github.com/happy-voucher/happy-voucher-repo/issues/82) | Scenariusz wspólny działa z prawdziwymi partnerami, także w sytuacjach błędnych |
 
 ## Jak zmieniamy wymagania
 

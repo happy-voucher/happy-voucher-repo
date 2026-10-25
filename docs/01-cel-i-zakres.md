@@ -2,7 +2,7 @@
 
 # Cel i zakres
 
-> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-01 Wymagania i reguły biznesowe voucherów, D-01 T5 decyzja o zakresie
+> **Opiekun:** Maciej Rożek (AN) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-01 Wymagania i reguły biznesowe voucherów (#72)](https://github.com/happy-voucher/happy-voucher-repo/issues/72), zadanie T5 decyzja o zakresie
 
 ## Cel
 
@@ -12,7 +12,7 @@ Każda usługa z vouchera ma być wykorzystana dokładnie raz i tylko w terminie
 
 ## Aktorzy
 
-Klient, posiadacz vouchera, operator D, partnerzy A, B i C oraz hotel C w roli koordynatora pakietu. Pełne opisy są w [słowniku pojęć](03-wymagania/slownik-pojec.md#aktorzy).
+Klient, posiadacz vouchera, operator i administrator D, partnerzy A, B i C oraz hotel C w roli koordynatora pakietu. Pełne opisy są w [słowniku pojęć](03-wymagania/slownik-pojec.md#aktorzy).
 
 ## Zakres pierwszej wersji
 
@@ -21,11 +21,11 @@ Zakres obejmuje wspólny scenariusz czterech zespołów, bo to on jest kryterium
 | Obszar | Co wchodzi | Epik |
 | :- | :- | :- |
 | Analiza i kontrakt | Reguły biznesowe, model danych, kontrakt z A, B, C, specyfikacja API D | D-E0, D-E1 |
-| Fundamenty | Baza SQLite z migracjami, CI, szkielet serwera, symulator partnerów | D-E2, D-E3 |
+| Fundamenty | Baza SQLite z migracjami, CI, szkielet serwera, szkielet aplikacji Next.js z logowaniem przez Firebase, symulator partnerów | D-E2, D-E3 |
 | Katalog i sprzedaż | Pobieranie usług partnerów, oferty na usługę i pakiet, katalog, zamówienie, symulowana płatność, kod vouchera, strona vouchera | D-E4, D-E5 |
 | API dla partnerów | Weryfikacja kodu, blokada pozycji, realizacja, ochrona przed ponownym wykorzystaniem, wygasanie | D-E6 |
 | Rezerwacje | Dostępność i rezerwacja u A, B, C, konflikt terminu, brak miejsc, niedostępność partnera | D-E7 |
-| Rozliczenia i obsługa | Zestawienia wykorzystanych voucherów i kwot, panel obsługi w guigui | D-E8 |
+| Rozliczenia i obsługa | Zestawienia wykorzystanych voucherów i kwot, panel operatora w Next.js | D-E8 |
 | Odbiór | Automatyczny test scenariusza wspólnego, testy z prawdziwymi partnerami | D-E9 |
 
 ## Poza zakresem

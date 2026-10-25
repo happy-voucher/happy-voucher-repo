@@ -2,7 +2,7 @@
 
 # Kontrakt integracji z A, B, C
 
-> **Opiekun:** Szymon Piechutowski (BE) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-03 Uzgodnienie kontraktu z zespołami A, B, C (T1 propozycja AN, T2 spotkanie KP, T4 zapis AN)
+> **Opiekun:** Szymon Piechutowski (BE) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-03 Uzgodnienie kontraktu z zespołami A, B, C (#84)](https://github.com/happy-voucher/happy-voucher-repo/issues/84) (T1 propozycja AN, T2 spotkanie KP, T4 zapis AN)
 >
 > **Status:** propozycja zespołu D do uzgodnienia na spotkaniu czterech zespołów (D-03 T2)
 

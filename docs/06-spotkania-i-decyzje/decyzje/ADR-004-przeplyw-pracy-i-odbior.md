@@ -28,7 +28,8 @@ Musimy ustalić, kiedy zadanie jest zakończone i kto to sprawdza. GitHub nie bl
 ## Wdrożenie
 
 - Ochrona gałęzi głównej: zmiany tylko przez PR z zatwierdzeniem innej osoby i zielonym CI (D-07).
-- Statusy Do zrobienia, W trakcie, Do weryfikacji, Do poprawy, Zakończone na [tablicy projektu](https://github.com/orgs/happy-voucher/projects/10/views/1).
+- Statusy Do zrobienia, Gotowe do startu, W trakcie, Do weryfikacji, Do poprawy, Zakończone na [tablicy „Main”](https://github.com/orgs/happy-voucher/projects).
+- Workflow [Odblokuj zależne](../../../.github/workflows/odblokuj-zalezne.yml): po zamknięciu issue przenosi odblokowane historyjki i ich zadania z „Do zrobienia” do „Gotowe do startu”.
 - Lista kontrolna w szablonie PR i [definicja ukończenia](../../02-zespol-i-wspolpraca.md#definicja-ukończenia).
 
 ## Uczestnicy i ich wkład

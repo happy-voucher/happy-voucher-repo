@@ -2,7 +2,7 @@
 
 # Plan testów
 
-> **Opiekun:** Mikołaj Liszewski (TM) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** D-02 T3 lista przypadków testowych (TM), D-02 T4 oznaczenie przypadków automatycznych (TA)
+> **Opiekun:** Mikołaj Liszewski (TM) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-02 (#83)](https://github.com/happy-voucher/happy-voucher-repo/issues/83) T3 lista przypadków testowych (TM), T4 oznaczenie przypadków automatycznych (TA)
 >
 > **Status:** szkielet. Przypadki opracowuje TM w zadaniu D-02 T3
 
@@ -11,6 +11,7 @@
 | Rodzaj | Kto | Gdzie i kiedy | Historyjka |
 | :- | :- | :- | :- |
 | Jednostkowe i integracyjne w Go | TA | `go test ./...` w CI przy każdym PR | D-07 |
+| Testy frontendu | TA | `npm test` w CI przy każdym PR, testy Playwright na danych przykładowych z `cmd/seed` | D-06, D-07 |
 | Testy API na podstawie specyfikacji | TA | Na serwerze z symulatorem partnerów | D-04 T3 |
 | Automatyczny test scenariusza wspólnego | TA | Na symulatorze w CI, a po podaniu adresów także na prawdziwych API | D-24 |
 | Testy ręczne sklepu i panelu | TM | Na danych przykładowych z `cmd/seed` | D-06, D-12, D-15, D-23 |
