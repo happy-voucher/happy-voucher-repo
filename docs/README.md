@@ -16,7 +16,7 @@ To strona nadrzędna całej dokumentacji. Dokumentację trzymamy w repozytorium,
 | [04 Plan prac](04-plan-prac/README.md) | Plan sprintów, cele sprintów i ich podsumowania | Jakub Sikora (KP) |
 | [05 Projekt rozwiązania](05-projekt-rozwiazania/README.md) | Architektura, model danych, API D, kontrakt integracji z A, B, C | Szymon Piechutowski (BE) |
 | [06 Spotkania i decyzje](06-spotkania-i-decyzje/README.md) | Notatki ze spotkań i rejestr decyzji zespołowych (ADR) | Jakub Sikora (KP) |
-| [07 Testy i odbiór](07-testy-i-odbior/README.md) | Plan testów, przypadki testowe (konflikt, brak miejsc, niedostępność partnera), raporty | Mikołaj Liszewski (TM) |
+| [07 Testy i odbiór](07-testy-i-odbior/README.md) | Plan testów, przypadki testowe (konflikt, brak miejsc, niedostępność partnera), raporty | Mikołaj Liszewski (TM), Alan Lubiński (TA) |
 | [08 Materiały](08-materialy/README.md) | Opis projektów od prowadzącego, prezentacje, załączniki | Jakub Barej (DO) |
 
 ## Drzewo stron

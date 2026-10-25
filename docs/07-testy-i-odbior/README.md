@@ -2,7 +2,7 @@
 
 # Testy i odbiór
 
-> **Opiekun:** Mikołaj Liszewski (TM) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-02 Model pojęciowy danych i przypadki testowe (#83)](https://github.com/happy-voucher/happy-voucher-repo/issues/83)
+> **Opiekunowie:** Mikołaj Liszewski (TM), Alan Lubiński (TA) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [D-02 Model pojęciowy danych i przypadki testowe (#83)](https://github.com/happy-voucher/happy-voucher-repo/issues/83)
 
 Ten obszar opisuje, jak sprawdzamy system D i jak przebiega odbiór. Przypadki ręczne i testy z partnerami prowadzi tester manualny, a testy automatyczne tester automatyczny (Alan Lubiński, TA).
 
