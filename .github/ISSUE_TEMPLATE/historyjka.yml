@@ -1,0 +1,38 @@
+name: Historyjka
+description: Funkcja dla klienta, partnera lub obsługi, mieści się w jednym sprincie
+type: Historyjka
+body:
+  - type: input
+    id: epik
+    attributes:
+      label: Epik
+      description: Identyfikator i tytuł, np. D-E4 Realizacja i kontrola wykorzystania
+    validations:
+      required: true
+  - type: textarea
+    id: opis
+    attributes:
+      label: Opis
+      description: Jako... chcę... aby...
+    validations:
+      required: true
+  - type: textarea
+    id: kryteria
+    attributes:
+      label: Kryteria akceptacji
+      description: Od 3 do 6 sprawdzalnych kryteriów, jedno na linię
+      value: "- [ ] "
+    validations:
+      required: true
+  - type: dropdown
+    id: priorytet
+    attributes:
+      label: Priorytet
+      options: [P1, P2, P3]
+    validations:
+      required: true
+  - type: textarea
+    id: zaleznosci
+    attributes:
+      label: Zależności
+      description: Relacje "blocked by" ustaw też w issue

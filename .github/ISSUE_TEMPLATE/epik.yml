@@ -1,0 +1,16 @@
+name: Epik
+description: Duży obszar funkcji, zamykany gdy wszystkie jego historyjki są zakończone
+type: Epik
+body:
+  - type: textarea
+    id: cel
+    attributes:
+      label: Cel
+    validations:
+      required: true
+  - type: textarea
+    id: zakres
+    attributes:
+      label: Zakres i poza zakresem
+    validations:
+      required: true
