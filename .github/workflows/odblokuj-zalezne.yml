@@ -1,0 +1,56 @@
+name: Odblokuj zależne
+
+# Po zamknięciu issue: jeśli zablokowana przez nie historyjka nie ma już otwartych
+# blokad, ona i jej zadania dostają na boardzie Main status "Gotowe do startu".
+# Wymaga sekretu PROJECT_TOKEN (PAT z zakresami: project, repo).
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: read
+
+env:
+  GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+  REPO: ${{ github.repository }}
+  PROJECT_ID: PVT_kwDOFLn_ec4Bop6p
+  STATUS_FIELD: PVTSSF_lADOFLn_ec4Bop6pzhnI-6A
+  FROM_STATUS: Do zrobienia
+  READY_OPTION: "37594870"
+
+jobs:
+  unblock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ustaw "Gotowe do startu" dla odblokowanych issues
+        env:
+          CLOSED: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+
+          ready() {
+            local node item cur
+            node=$(gh api "repos/$REPO/issues/$1" --jq .node_id)
+            IFS=$'\t' read -r item cur < <(gh api graphql -f id="$node" -f query='
+              query($id: ID!) { node(id: $id) { ... on Issue { projectItems(first: 20) { nodes {
+                id project { id }
+                fieldValueByName(name: "Status") { ... on ProjectV2ItemFieldSingleSelectValue { name } }
+              } } } } }' --jq ".data.node.projectItems.nodes[] | select(.project.id == \"$PROJECT_ID\") | [.id, .fieldValueByName.name] | @tsv") || return 0
+            [ "$cur" = "$FROM_STATUS" ] || return 0
+            gh api graphql -f query='
+              mutation($p: ID!, $i: ID!, $f: ID!, $o: String!) {
+                updateProjectV2ItemFieldValue(input: {projectId: $p, itemId: $i, fieldId: $f,
+                  value: {singleSelectOptionId: $o}}) { projectV2Item { id } } }' \
+              -f p="$PROJECT_ID" -f i="$item" -f f="$STATUS_FIELD" -f o="$READY_OPTION" > /dev/null
+            echo "#$1 -> Gotowe do startu"
+          }
+
+          for blocked in $(gh api "repos/$REPO/issues/$CLOSED/dependencies/blocking" --jq '.[].number'); do
+            open=$(gh api "repos/$REPO/issues/$blocked/dependencies/blocked_by" --jq '[.[] | select(.state == "open")] | length')
+            [ "$open" -eq 0 ] || continue
+            ready "$blocked"
+            for sub in $(gh api "repos/$REPO/issues/$blocked/sub_issues" --jq '.[].number'); do
+              ready "$sub"
+            done
+          done
