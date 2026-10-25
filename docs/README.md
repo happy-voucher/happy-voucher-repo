@@ -69,6 +69,6 @@ docs/
 - Przyjętej decyzji nie edytujemy. Zmianę zapisujemy jako nową decyzję, która zastępuje poprzednią.
 - Opiekun obszaru raz na sprint przegląda swoje strony.
 
-**Uprawnienia:** członkowie zespołu mają prawo zapisu, a prowadzący prawo odczytu albo triage. Gałąź główna jest chroniona: zmiany wchodzą tylko przez PR z jednym zatwierdzeniem innej osoby. Plik [CODEOWNERS](../.github/CODEOWNERS) przypisuje opiekunów do katalogów dokumentacji, więc opiekun jest automatycznie proszony o przegląd zmian w swoim obszarze.
+**Uprawnienia:** wszyscy członkowie zespołu mają rolę Admin (Mikołaj Liszewski: Maintain). Repozytorium jest publiczne, więc prowadzący widzi dokumentację bez osobnego dostępu. Gałąź główna jest chroniona: zmiany wchodzą tylko przez PR z jednym zatwierdzeniem innej osoby, także od administratorów. Plik [CODEOWNERS](../.github/CODEOWNERS) przypisuje opiekunów do katalogów dokumentacji, więc opiekun jest automatycznie proszony o przegląd zmian w swoim obszarze.
 
 **Powiązanie zadań z dokumentacją:** issue linkuje do strony, której dotyczy, a strona podaje w nagłówku numer issue. PR zmieniający dokumentację ma w opisie odnośnik do issue. Przykład: historyjka D-18 i [api-d.md](05-projekt-rozwiazania/api-d.md).

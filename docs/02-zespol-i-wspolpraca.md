@@ -24,10 +24,10 @@ Zastępca robi co najmniej jeden przegląd PR na sprint w module osoby, którą 
 
 | Kto | Uprawnienia |
 | :- | :- |
-| DevOps | Admin: konfiguracja repozytorium i projektu |
-| Backend | Admin jako zastępca DevOps |
-| Pozostali członkowie zespołu | Write |
-| Prowadzący | Read albo Triage |
+| Wszyscy członkowie zespołu | Admin (Mikołaj Liszewski: Maintain) |
+| Prowadzący | Repozytorium jest publiczne, więc ma wgląd bez osobnego dostępu |
+
+Przed przypadkowymi zmianami chroni gałąź `main`: każdy PR wymaga zatwierdzenia przez inną osobę, także od administratorów.
 
 Issue nie usuwamy, tylko zamykamy jako nieplanowane, bo usunięcia nie da się cofnąć.
 
