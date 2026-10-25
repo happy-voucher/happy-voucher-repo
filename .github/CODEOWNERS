@@ -1,0 +1,14 @@
+# Opiekunowie obszarów dokumentacji (docs/README.md, ADR-005).
+# Zmiana w obszarze automatycznie prosi opiekuna o przegląd PR.
+# Ostatnia pasująca reguła wygrywa.
+
+/README.md                          @JSikoraVistula @Ksionk
+/docs/README.md                     @JSikoraVistula
+/docs/01-cel-i-zakres.md            @kroliktroll123-create
+/docs/02-zespol-i-wspolpraca.md     @JSikoraVistula
+/docs/03-wymagania/                 @kroliktroll123-create
+/docs/04-plan-prac/                 @JSikoraVistula
+/docs/05-projekt-rozwiazania/       @Piechutowski
+/docs/06-spotkania-i-decyzje/       @JSikoraVistula
+/docs/07-testy-i-odbior/            @Mikson098
+/docs/08-materialy/                 @Ksionk
