@@ -1,0 +1,17 @@
+name: Zadanie
+description: Konkretna praca techniczna w ramach historyjki (sub-issue)
+type: Task
+body:
+  - type: input
+    id: historyjka
+    attributes:
+      label: Historyjka
+      description: Identyfikator historyjki nadrzędnej, np. D-19
+    validations:
+      required: true
+  - type: textarea
+    id: opis
+    attributes:
+      label: Opis
+    validations:
+      required: true

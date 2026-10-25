@@ -1,0 +1,35 @@
+name: Błąd
+description: Rozbieżność z kryteriami akceptacji
+type: Bug
+body:
+  - type: input
+    id: historyjka
+    attributes:
+      label: Powiązana historyjka
+    validations:
+      required: true
+  - type: textarea
+    id: kroki
+    attributes:
+      label: Kroki odtworzenia
+    validations:
+      required: true
+  - type: textarea
+    id: oczekiwany
+    attributes:
+      label: Wynik oczekiwany
+    validations:
+      required: true
+  - type: textarea
+    id: rzeczywisty
+    attributes:
+      label: Wynik rzeczywisty
+    validations:
+      required: true
+  - type: dropdown
+    id: priorytet
+    attributes:
+      label: Priorytet
+      options: [P0, P1, P2, P3]
+    validations:
+      required: true
