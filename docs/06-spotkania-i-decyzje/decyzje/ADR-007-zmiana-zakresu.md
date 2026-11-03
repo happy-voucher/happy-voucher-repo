@@ -2,9 +2,9 @@
 
 # ADR-007 Zmiana zakresu i sytuacja problemowa
 
-> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [issue decyzji, link po założeniu]
+> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-04 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
 >
-> **Status:** proponowana, do zatwierdzenia na warsztacie · **Data warsztatu:** [uzupełnijcie]
+> **Status:** przyjęta · **Data:** 2026-11-04, głosowanie asynchroniczne w issue zamiast warsztatu
 
 ## Kontekst
 
@@ -23,7 +23,7 @@ Sytuacja przykładowa: partner B ogłasza opóźnienie swojego API. Część nas
 
 ## Rozbieżności lub wynik głosowania
 
-[uzupełnijcie po warsztacie]
+Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237) od 25 października do 4 listopada 2026, reakcjami pod [komentarzem tej decyzji](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6401146510). Wynik: 4 za, 0 przeciw, 3 osoby bez głosu (Szymon Piechutowski, Krystian Inoch, Mikołaj Liszewski). Bez rozbieżności. Pytanie Szymona Piechutowskiego o symulator ma odpowiedź w [komentarzu](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6617612164): chodzi o symulator partnerów `cmd/partnersim` z D-09. Decyzja przyjęta, bo ma głosy za od 4 z 7 osób.
 
 ## Wdrożenie
 
@@ -33,14 +33,14 @@ Sytuacja przykładowa: partner B ogłasza opóźnienie swojego API. Część nas
 
 ## Uczestnicy i ich wkład
 
-**Moderator:** [uzupełnijcie] · **Autor notatki:** [uzupełnijcie]
+**Moderator:** Szymon Piechutowski (BE) · **Autor notatki:** Alan Lubiński (TA), według podziału z [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237). Wyniki głosowania spisał Maciej Rożek (AN).
 
-| Osoba | Rola | Argument, który wpłynął na wybór | Własne działanie | Link do komentarza |
-| :- | :- | :- | :- | :- |
-| Jakub Sikora | KP | | | |
-| Maciej Rożek | AN | | | |
-| Szymon Piechutowski | BE | | | |
-| Krystian Inoch | FE | | | |
-| Jakub Barej | DO | | | |
-| Alan Lubiński | TA | | | |
-| Mikołaj Liszewski | TM | | | |
+| Osoba | Rola | Głos | Argument, który wpłynął na wybór | Własne działanie | Link do komentarza |
+| :- | :- | :- | :- | :- | :- |
+| Jakub Sikora | KP | za | — | — | — |
+| Maciej Rożek | AN | za | Symulator zgodny z kontraktem pozwala pracować i testować w CI, zanim partnerzy udostępnią API, więc opóźnienie partnera nie zatrzymuje pracy | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6617612164) |
+| Szymon Piechutowski | BE | brak głosu | — (pytanie „Jaki symulator?”) | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6613277944) |
+| Krystian Inoch | FE | brak głosu | — | — | — |
+| Jakub Barej | DO | za | — | — | — |
+| Alan Lubiński | TA | za | — | — | — |
+| Mikołaj Liszewski | TM | brak głosu | — | — | — |

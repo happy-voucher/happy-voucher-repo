@@ -2,9 +2,9 @@
 
 # ADR-001 Sposób organizacji pracy
 
-> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [issue decyzji, link po założeniu]
+> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-04 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
 >
-> **Status:** proponowana, do zatwierdzenia na warsztacie · **Data warsztatu:** [uzupełnijcie]
+> **Status:** przyjęta · **Data:** 2026-11-04, głosowanie asynchroniczne w issue zamiast warsztatu
 
 ## Kontekst
 
@@ -23,7 +23,7 @@ Projekt D zależy od trzech innych zespołów (A, B, C), które budują swoje sy
 
 ## Rozbieżności lub wynik głosowania
 
-[uzupełnijcie po warsztacie]
+Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237) od 25 października do 4 listopada 2026, reakcjami pod [komentarzem tej decyzji](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6401144192). Wynik: 4 za, 0 przeciw, 3 osoby bez głosu (Alan Lubiński, Krystian Inoch, Mikołaj Liszewski). Bez rozbieżności. Decyzja przyjęta, bo ma głosy za od 4 z 7 osób.
 
 ## Wdrożenie
 
@@ -33,14 +33,14 @@ Projekt D zależy od trzech innych zespołów (A, B, C), które budują swoje sy
 
 ## Uczestnicy i ich wkład
 
-**Moderator:** [uzupełnijcie] · **Autor notatki:** [uzupełnijcie]
+**Moderator:** Jakub Sikora (KP) · **Autor notatki:** Maciej Rożek (AN), według podziału z [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237). Wyniki głosowania spisał Maciej Rożek (AN).
 
-| Osoba | Rola | Argument, który wpłynął na wybór | Własne działanie | Link do komentarza |
-| :- | :- | :- | :- | :- |
-| Jakub Sikora | KP | | | |
-| Maciej Rożek | AN | | | |
-| Szymon Piechutowski | BE | | | |
-| Krystian Inoch | FE | | | |
-| Jakub Barej | DO | | | |
-| Alan Lubiński | TA | | | |
-| Mikołaj Liszewski | TM | | | |
+| Osoba | Rola | Głos | Argument, który wpłynął na wybór | Własne działanie | Link do komentarza |
+| :- | :- | :- | :- | :- | :- |
+| Jakub Sikora | KP | za | — (w komentarzu tylko „1.A”) | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6546876873) |
+| Maciej Rożek | AN | za | — | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6617612164) |
+| Szymon Piechutowski | BE | za | — | — | — |
+| Krystian Inoch | FE | brak głosu | — | — | — |
+| Jakub Barej | DO | za | — | — | — |
+| Alan Lubiński | TA | brak głosu | — | — | — |
+| Mikołaj Liszewski | TM | brak głosu | — | — | — |
