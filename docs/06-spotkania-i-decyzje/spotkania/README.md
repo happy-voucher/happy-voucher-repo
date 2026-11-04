@@ -2,11 +2,11 @@
 
 # Notatki ze spotkań
 
-> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** —
+> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-04 · **Issue:** —
 
 | Data | Spotkanie | Notatka |
 | :- | :- | :- |
-| [uzupełnijcie] | Warsztat decyzji zespołowych | [dodajcie po warsztacie] |
+| 2026-10-25 – 2026-11-04 | Głosowanie asynchroniczne nad decyzjami ADR-001 do ADR-007, zamiast warsztatu | [Wyniki w rejestrze decyzji](../README.md#głosowanie-nad-decyzjami-zespołowymi) |
 
 ## Szablon notatki
 

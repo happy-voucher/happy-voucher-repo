@@ -2,9 +2,9 @@
 
 # ADR-002 Zakres pierwszej wersji
 
-> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-10-25 · **Issue:** [issue decyzji, link po założeniu]
+> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-04 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
 >
-> **Status:** proponowana, do zatwierdzenia na warsztacie · **Data warsztatu:** [uzupełnijcie]
+> **Status:** przyjęta · **Data:** 2026-11-04, głosowanie asynchroniczne w issue zamiast warsztatu
 
 ## Kontekst
 
@@ -23,7 +23,7 @@ Czas projektu jest ograniczony, a odbiór ocenia, czy wspólny scenariusz cztere
 
 ## Rozbieżności lub wynik głosowania
 
-[uzupełnijcie po warsztacie]
+Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237) od 25 października do 4 listopada 2026, reakcjami pod [komentarzem tej decyzji](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6401144530). Wynik: 4 za, 0 przeciw, 3 osoby bez głosu (Alan Lubiński, Krystian Inoch, Mikołaj Liszewski). Jedna niejasność: komentarz Jakuba Sikory to „2.A”, a reakcja jest za proponowanym wariantem B. Liczymy reakcje, bo tak działa głosowanie w #237. Decyzja przyjęta, bo ma głosy za od 4 z 7 osób.
 
 ## Wdrożenie
 
@@ -33,14 +33,14 @@ Czas projektu jest ograniczony, a odbiór ocenia, czy wspólny scenariusz cztere
 
 ## Uczestnicy i ich wkład
 
-**Moderator:** [uzupełnijcie] · **Autor notatki:** [uzupełnijcie]
+**Moderator:** Maciej Rożek (AN) · **Autor notatki:** Jakub Sikora (KP), według podziału z [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237). Wyniki głosowania spisał Maciej Rożek (AN).
 
-| Osoba | Rola | Argument, który wpłynął na wybór | Własne działanie | Link do komentarza |
-| :- | :- | :- | :- | :- |
-| Jakub Sikora | KP | | | |
-| Maciej Rożek | AN | | | |
-| Szymon Piechutowski | BE | | | |
-| Krystian Inoch | FE | | | |
-| Jakub Barej | DO | | | |
-| Alan Lubiński | TA | | | |
-| Mikołaj Liszewski | TM | | | |
+| Osoba | Rola | Głos | Argument, który wpłynął na wybór | Własne działanie | Link do komentarza |
+| :- | :- | :- | :- | :- | :- |
+| Jakub Sikora | KP | za | — (w komentarzu „2.A”, reakcja za wariantem B) | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6546876873) |
+| Maciej Rożek | AN | za | Wspólny scenariusz jest kryterium odbioru, a pełny zakres grozi tym, że nic nie zadziała od początku do końca | Trzymanie wymagań i reguł biznesowych w [03-wymagania](../../03-wymagania/README.md) w granicach scenariusza wspólnego | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6617612164) |
+| Szymon Piechutowski | BE | za | „Mniej znaczy więcej” | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6613125651) |
+| Krystian Inoch | FE | brak głosu | — | — | — |
+| Jakub Barej | DO | za | — | — | — |
+| Alan Lubiński | TA | brak głosu | — | — | — |
+| Mikołaj Liszewski | TM | brak głosu | — | — | — |
