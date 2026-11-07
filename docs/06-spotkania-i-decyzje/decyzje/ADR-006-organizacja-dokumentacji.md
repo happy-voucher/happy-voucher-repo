@@ -2,7 +2,7 @@
 
 # ADR-006 Organizacja dokumentacji
 
-> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-04 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
+> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-07 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
 >
 > **Status:** przyjęta · **Data:** 2026-11-04, głosowanie asynchroniczne w issue zamiast warsztatu
 
@@ -23,7 +23,7 @@ Zamiast Confluence używamy GitHuba. Musimy wybrać, gdzie trzymać dokumentacj�
 
 ## Rozbieżności lub wynik głosowania
 
-Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237) od 25 października do 4 listopada 2026, reakcjami pod [komentarzem tej decyzji](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6401145942). Wynik: 4 za, 0 przeciw, 3 osoby bez głosu (Alan Lubiński, Krystian Inoch, Mikołaj Liszewski). Bez rozbieżności. Decyzja przyjęta, bo ma głosy za od 4 z 7 osób.
+Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237) od 25 października do 4 listopada 2026, reakcjami pod [komentarzem tej decyzji](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6401145942). Wynik: 6 za, 0 przeciw, 1 osoba bez głosu (Alan Lubiński). Bez rozbieżności. Decyzja przyjęta, bo ma głosy za od 6 z 7 osób.
 
 ## Wdrożenie
 
@@ -39,7 +39,7 @@ Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy
 | Jakub Sikora | KP | za | — | — | — |
 | Maciej Rożek | AN | za | — | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6617612164) |
 | Szymon Piechutowski | BE | za | — | — | — |
-| Krystian Inoch | FE | brak głosu | — | — | — |
+| Krystian Inoch | FE | za | — | — | — |
 | Jakub Barej | DO | za | — | — | — |
 | Alan Lubiński | TA | brak głosu | — | — | — |
-| Mikołaj Liszewski | TM | brak głosu | — | — | — |
+| Mikołaj Liszewski | TM | za | — | — | — |

@@ -2,7 +2,7 @@
 
 # ADR-004 Przepływ pracy i odbiór zadania
 
-> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-04 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
+> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-07 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
 >
 > **Status:** przyjęta · **Data:** 2026-11-04, głosowanie asynchroniczne w issue zamiast warsztatu
 
@@ -23,7 +23,7 @@ Musimy ustalić, kiedy zadanie jest zakończone i kto to sprawdza. GitHub nie bl
 
 ## Rozbieżności lub wynik głosowania
 
-Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237) od 25 października do 4 listopada 2026, reakcjami pod [komentarzem tej decyzji](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6401145260). Wynik: 4 za, 1 przeciw, 2 osoby bez głosu (Krystian Inoch, Mikołaj Liszewski). Przeciw: Szymon Piechutowski, z komentarzem „Wariant B”, czyli odbiór tylko przez testy. Decyzja przyjęta, bo ma głosy za od 4 z 7 osób.
+Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237) od 25 października do 4 listopada 2026, reakcjami pod [komentarzem tej decyzji](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6401145260). Wynik: 6 za, 1 przeciw, głos oddało 7 z 7 osób. Przeciw: Szymon Piechutowski, z komentarzem „Wariant B”, czyli odbiór tylko przez testy. W dyskusji padło [pytanie Szymona Piechutowskiego](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6635115531), kto poza Krystianem Inochem zna Next.js i może przeglądać zmiany frontendu, a [odpowiedź Krystiana Inocha](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6635544966) brzmi „Pewnie nikt”. Decyzja przyjęta, bo ma głosy za od 6 z 7 osób.
 
 ## Wdrożenie
 
@@ -40,8 +40,8 @@ Głosowanie asynchroniczne w issue [#237](https://github.com/happy-voucher/happy
 | :- | :- | :- | :- | :- | :- |
 | Jakub Sikora | KP | za | — | — | — |
 | Maciej Rożek | AN | za | — | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6617612164) |
-| Szymon Piechutowski | BE | przeciw (wariant B) | „Wariant B”, „Wśród chaosu jest też sposobność” | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6613221286) |
-| Krystian Inoch | FE | brak głosu | — | — | — |
+| Szymon Piechutowski | BE | przeciw (wariant B) | „Wariant B”, „Wśród chaosu jest też sposobność”; w dyskusji pytanie, kto poza Krystianem Inochem zna Next.js | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6613221286), [pytanie](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6635115531), [pytanie](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6643329062) |
+| Krystian Inoch | FE | za | Przegląd przez drugą osobę pomoże wychwycić błędy w działaniu i wyglądzie interfejsu, których testy automatyczne mogą nie zauważyć | Zgłaszanie zmian frontendu do przeglądu i poprawianie znalezionych problemów przed połączeniem zmian | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6634440594), [odpowiedź](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6635544966) |
 | Jakub Barej | DO | za | — | — | — |
 | Alan Lubiński | TA | za | — (w komentarzu tylko „4.A”) | — | [komentarz](https://github.com/happy-voucher/happy-voucher-repo/issues/237#issuecomment-6547608578) |
-| Mikołaj Liszewski | TM | brak głosu | — | — | — |
+| Mikołaj Liszewski | TM | za | — | — | — |
