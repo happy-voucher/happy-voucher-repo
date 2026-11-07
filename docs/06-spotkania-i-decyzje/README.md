@@ -2,7 +2,7 @@
 
 # Spotkania i decyzje
 
-> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-04 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
+> **Opiekun:** Jakub Sikora (KP) · **Ostatnia zmiana:** 2026-11-07 · **Issue:** [Głosowanie nad decyzjami (#237)](https://github.com/happy-voucher/happy-voucher-repo/issues/237)
 
 Tu jest rejestr decyzji zespołu D i notatki ze spotkań. Każda decyzja ma osobny plik w katalogu [decyzje/](decyzje/), a notatki są w [spotkania/](spotkania/README.md).
 
@@ -11,8 +11,8 @@ Tu jest rejestr decyzji zespołu D i notatki ze spotkań. Każda decyzja ma osob
 Zamiast warsztatu głosowanie odbyło się asynchronicznie w issue [#237](https://github.com/happy-voucher/happy-voucher-repo/issues/237): reakcja 👍 albo 👎 pod każdą decyzją i komentarz z argumentem.
 
 - **Data:** od 2026-10-25 do 2026-11-04
-- **Uczestnicy:** 5 z 7 osób: Jakub Sikora (KP), Maciej Rożek (AN), Szymon Piechutowski (BE), Jakub Barej (DO), Alan Lubiński (TA). Bez głosu: Krystian Inoch (FE), Mikołaj Liszewski (TM)
-- **Wynik:** każda decyzja ma 4 głosy za, czyli większość zespołu, więc wszystkie są przyjęte. Jedyny głos przeciw dotyczy ADR-004. Szczegóły i linki do komentarzy są w plikach decyzji
+- **Uczestnicy:** głos oddało 7 z 7 osób: Jakub Sikora (KP), Maciej Rożek (AN), Szymon Piechutowski (BE), Krystian Inoch (FE), Jakub Barej (DO), Alan Lubiński (TA), Mikołaj Liszewski (TM). Głos Alana Lubińskiego dotyczy tylko ADR-004 i ADR-007, a przy ADR-007 nie ma głosu Szymona Piechutowskiego
+- **Wynik:** każda decyzja ma 6 głosów za, czyli większość zespołu, więc wszystkie są przyjęte. Jedyny głos przeciw dotyczy ADR-004. Szczegóły i linki do komentarzy są w plikach decyzji
 
 ## Rejestr decyzji
 
