@@ -1,0 +1,179 @@
+Project happy_voucher_d {
+  database_type: 'SQLite'
+  Note: 'System D. Kwoty w groszach (ROZ-01), czas w UTC.'
+}
+
+Enum offer_type {
+  service [note: 'voucher na usługę']
+  package [note: 'pakiet']
+}
+
+Enum offer_state {
+  draft [note: 'robocza']
+  active [note: 'aktywna']
+  withdrawn [note: 'wycofana']
+}
+
+Enum order_state {
+  pending [note: 'nieopłacone']
+  paid [note: 'opłacone']
+}
+
+Enum item_state {
+  available [note: 'dostępna']
+  booked [note: 'zarezerwowana']
+  redeemed [note: 'zrealizowana']
+  expired [note: 'wygasła']
+  cancelled [note: 'anulowana']
+}
+
+Enum booking_state {
+  confirmed [note: 'potwierdzona']
+  uncertain [note: 'do wyjaśnienia']
+  failed [note: 'konflikt, brak miejsc albo błąd partnera']
+  ended [note: 'zwolniona, anulowana albo usługa wykonana']
+}
+
+Enum role {
+  operator
+  admin
+}
+
+Table partners {
+  id integer [pk, increment]
+  code varchar [unique, not null, note: 'A, B, C']
+  name varchar [not null]
+  api_url varchar [not null]
+  api_key_hash blob [unique, not null, note: 'SHA-256 klucza partnera']
+  outbound_api_key varchar [not null, note: 'klucz D do API partnera']
+}
+
+Table partner_services {
+  id integer [pk, increment]
+  partner_id integer [not null, ref: > partners.id]
+  external_id varchar [not null, note: 'identyfikator usługi u partnera']
+  name varchar [not null]
+  price integer [not null]
+  active boolean [not null, default: true]
+
+  indexes {
+    (partner_id, external_id) [unique]
+  }
+}
+
+Table sync_log {
+  id integer [pk, increment]
+  partner_id integer [not null, ref: > partners.id]
+  at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  ok boolean [not null]
+  error varchar
+  handled_at timestamp [note: 'NULL przy błędzie = sprawa w kolejce']
+}
+
+Table offers {
+  id integer [pk, increment]
+  name varchar [not null]
+  description varchar [not null, default: '']
+  kind offer_type [not null]
+  status offer_state [not null, default: 'draft']
+  price integer [not null]
+  validity_days integer [not null]
+  coordinator_partner_id integer [ref: ?>? partners.id, note: 'hotel C w pakiecie z noclegiem']
+}
+
+Table offer_items {
+  id integer [pk, increment]
+  offer_id integer [not null, ref: > offers.id]
+  service_id integer [not null, ref: > partner_services.id]
+  quantity integer [not null]
+  partner_amount integer [not null, note: 'za jedną sztukę']
+}
+
+Table orders {
+  id integer [pk, increment]
+  offer_id integer [not null, ref: > offers.id]
+  quantity integer [not null, note: '1 do 10']
+  unit_price integer [not null, note: 'cena z chwili zakupu']
+  email varchar [not null]
+  recipient_name varchar
+  status order_state [not null, default: 'pending']
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  paid_at timestamp
+
+  indexes {
+    email
+  }
+}
+
+Table vouchers {
+  id integer [pk, increment]
+  code varchar [unique, not null, note: 'VD-XXXX-XXXX-XXXX']
+  order_id integer [not null, ref: > orders.id]
+  valid_until varchar [not null, note: 'RRRR-MM-DD, Europe/Warsaw']
+  cancelled_at timestamp
+
+  Note: 'Status vouchera nie jest zapisywany, wynika z pozycji (POZ-05).'
+}
+
+Table voucher_items {
+  id integer [pk, increment]
+  voucher_id integer [not null, ref: > vouchers.id]
+  partner_id integer [not null, ref: > partners.id]
+  service_id integer [not null, ref: > partner_services.id]
+  partner_amount integer [not null]
+  state item_state [not null, default: 'available']
+}
+
+Table bookings {
+  id integer [pk, increment]
+  item_id integer [not null, ref: > voucher_items.id]
+  by_partner boolean [not null, note: 'true = blokada partnera, false = rezerwacja przez D']
+  status booking_state [not null]
+  partner_booking_ref varchar
+  starts_at timestamp
+  idempotency_key varchar [unique]
+  created_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+
+  indexes {
+    item_id [name: 'ux_bookings_one_live', note: "UNIQUE WHERE status IN ('confirmed', 'uncertain'): najwyżej jedna trwająca rezerwacja na pozycję"]
+  }
+}
+
+Table redemptions {
+  id integer [pk, increment]
+  item_id integer [not null, ref: > voucher_items.id]
+  partner_id integer [not null, ref: > partners.id]
+  partner_booking_ref varchar
+  amount integer [not null]
+  redeemed_at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  month varchar [not null, note: 'RRRR-MM, Europe/Warsaw']
+  idempotency_key varchar [unique, not null]
+  reverted_at timestamp
+  revert_reason varchar
+
+  indexes {
+    item_id [name: 'ux_redemptions_one_active', note: 'UNIQUE WHERE reverted_at IS NULL: najwyżej jedno aktywne wykorzystanie na pozycję']
+    (partner_id, month)
+  }
+}
+
+Table voucher_events {
+  id integer [pk, increment]
+  voucher_id integer [not null, ref: > vouchers.id]
+  item_id integer [ref: ?>? voucher_items.id]
+  at timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  actor varchar [not null, note: 'partner:A, operator:<uid>, system']
+  operation varchar [not null]
+  from_state varchar
+  to_state varchar
+  note varchar
+
+  indexes {
+    (voucher_id, at)
+  }
+}
+
+Table staff {
+  uid varchar [pk, note: 'uid z Firebase']
+  role role [not null]
+}

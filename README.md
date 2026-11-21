@@ -38,6 +38,7 @@ System jest w budowie. Instrukcję uruchomienia serwera, symulatora i panelu dop
 - [Dokumentacja: indeks](docs/README.md)
 - [Rejestr decyzji zespołu](docs/06-spotkania-i-decyzje/README.md)
 - [Opis API D dla partnerów](docs/05-projekt-rozwiazania/api-d.md)
+- [Schemat bazy danych w DB diagrams](https://dbdiagram.io/d/Happy-Voucher-6503fd8102bd1c4a5e9f617b)
 
 ## Zespół
 
