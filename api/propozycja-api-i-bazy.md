@@ -2,13 +2,6 @@
 
 Propozycja na podstawie dokumentacji w repozytorium (reguły biznesowe, słownik pojęć, stany vouchera, `api-d.md`). Celem jest najprostsze rozwiązanie, które spełnia reguły i kryteria historyjek, a nie system produkcyjny.
 
-Pliki obok:
-
-| Plik | Zawartość |
-| :- | :- |
-| `db/types.go` | Dozwolone wartości statusów i ich walidatory |
-| `app/*.go` | Middleware CORS, format błędów, ładowanie partnera i operatora, struktury żądań, szkielety handlerów |
-
 ## 1. Założenia upraszczające
 
 - **Status vouchera nie jest zapisany w bazie.** Liczymy go z pozycji (POZ-05). Zmienia się tylko stan pozycji.
