@@ -1,0 +1,641 @@
+openapi: 3.1.0
+info:
+  title: API D dla partnerów
+  version: 0.3.0
+  summary: Weryfikacja, blokada i realizacja voucherów oraz zestawienia dla partnerów A, B i C.
+  description: |
+    API systemu D (sprzedaż i obsługa voucherów), z którego korzystają partnerzy A (gabinet masażu),
+    B (studio fitness) i C (hotel). Opis z przykładami: docs/05-projekt-rozwiazania/api-d.md.
+    Reguły biznesowe: docs/03-wymagania/reguly-biznesowe.md. Wspólne formaty i kody błędów:
+    docs/05-projekt-rozwiazania/kontrakt-integracji.md. Ścieżki odpowiadają trasom partnerskim
+    z api/app/routes.volt, a kody błędów i typy — implementacji w api/app/.
+
+    Status: szkic do uzgodnienia z zespołami A, B, C (D-03, D-04).
+
+    Zasady wspólne:
+    - każde żądanie ma nagłówek `Authorization: Bearer <klucz API partnera>`,
+    - żądania zmieniające stan wymagają nagłówka `Idempotency-Key`,
+    - czas w RFC 3339, kwoty jako liczby całkowite w groszach (PLN).
+servers:
+  - url: /
+    description: Adres bazowy serwera D (ustala D-07)
+security:
+  - partnerKey: []
+tags:
+  - name: Vouchery
+    description: Weryfikacja kodu, blokada i realizacja pozycji (D-16, D-17, D-18, D-19)
+  - name: Rozliczenia
+    description: Zestawienie partnera (D-22)
+
+paths:
+  /api/v1/vouchers/{code}:
+    get:
+      tags: [Vouchery]
+      operationId: verifyVoucher
+      summary: Weryfikacja kodu vouchera
+      description: |
+        Zwraca status vouchera, termin ważności i pozycje widoczne dla wywołującego partnera:
+        jego własne, a dla koordynatora pakietu wszystkie pozycje pakietu (BLK-01).
+      parameters:
+        - $ref: '#/components/parameters/VoucherCode'
+      responses:
+        '200':
+          description: Voucher istnieje i jest ważny
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher'
+              examples:
+                pakiet:
+                  summary: Pakiet widziany przez partnera A
+                  value:
+                    code: VD-7K3M-Q9TX-2HWP
+                    status: active
+                    valid_until: '2027-01-12'
+                    items:
+                      - item_id: 102
+                        partner_id: A
+                        service_id: masaz-relaks-60
+                        service_name: Masaż relaksacyjny 60 min
+                        state: booked
+                        booking:
+                          partner_booking_ref: A-2026-001234
+                          start: '2026-11-14T15:00:00+01:00'
+                          end: '2026-11-14T16:00:00+01:00'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/VoucherNotFound'
+        '410':
+          $ref: '#/components/responses/VoucherGone'
+
+  /api/v1/vouchers/{code}/holds:
+    post:
+      tags: [Vouchery]
+      operationId: holdItem
+      summary: Blokada pozycji
+      description: |
+        Partner, który przyjął rezerwację z kodem vouchera, zgłasza ją w D. D wybiera wolną pozycję
+        wskazanej usługi i zmienia jej stan na `booked` (BLK-03). Ponowienie z tym samym
+        `Idempotency-Key` nie blokuje drugiej pozycji (BLK-06).
+      parameters:
+        - $ref: '#/components/parameters/VoucherCode'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HoldRequest'
+            examples:
+              blokada:
+                value:
+                  service_id: masaz-relaks-60
+                  partner_booking_ref: A-2026-001234
+                  start: '2026-11-14T15:00:00+01:00'
+                  end: '2026-11-14T16:00:00+01:00'
+      responses:
+        '201':
+          description: Pozycja zablokowana
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemState'
+              examples:
+                zablokowana:
+                  value:
+                    item_id: 102
+                    state: booked
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Usługa należy do innego partnera (BLK-07)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                cudzaUsluga:
+                  value:
+                    error:
+                      code: SERVICE_NOT_OWNED
+                      message: Ta usługa należy do innego partnera.
+                      request_id: req_01JC8W3Q2V
+        '404':
+          $ref: '#/components/responses/VoucherNotFound'
+        '409':
+          description: Brak wolnej pozycji tej usługi albo rezerwacja pozycji czeka na wyjaśnienie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                brakPozycji:
+                  value:
+                    error:
+                      code: NO_AVAILABLE_ITEM
+                      message: W voucherze nie ma wolnej pozycji tej usługi.
+                      request_id: req_01JC8W3Q2V
+                doWyjasnienia:
+                  value:
+                    error:
+                      code: ITEM_UNDER_CLARIFICATION
+                      message: Rezerwacja tej pozycji czeka na wyjaśnienie.
+                      request_id: req_01JC8W3Q2V
+        '410':
+          $ref: '#/components/responses/VoucherGone'
+        '422':
+          $ref: '#/components/responses/IdempotencyKeyReused'
+
+  /api/v1/vouchers/{code}/items/{item_id}/hold:
+    delete:
+      tags: [Vouchery]
+      operationId: releaseItem
+      summary: Zwolnienie blokady
+      description: Przywraca pozycji stan `available` (BLK-05).
+      parameters:
+        - $ref: '#/components/parameters/VoucherCode'
+        - $ref: '#/components/parameters/ItemId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '200':
+          description: Blokada zwolniona
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemState'
+              examples:
+                zwolniona:
+                  value:
+                    item_id: 102
+                    state: available
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/ItemNotOwned'
+        '404':
+          $ref: '#/components/responses/VoucherNotFound'
+        '409':
+          description: Pozycja nie jest zarezerwowana
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                niezarezerwowana:
+                  value:
+                    error:
+                      code: ITEM_NOT_BOOKED
+                      message: Ta pozycja nie jest zarezerwowana.
+                      request_id: req_01JC8W3Q2V
+        '410':
+          $ref: '#/components/responses/VoucherGone'
+
+  /api/v1/vouchers/{code}/items/{item_id}/redemption:
+    post:
+      tags: [Vouchery]
+      operationId: redeemItem
+      summary: Realizacja pozycji
+      description: |
+        Partner po wykonaniu usługi potwierdza wykorzystanie swojej pozycji w stanie `available`
+        albo `booked`. Pozycja przechodzi w `redeemed`, powstaje wykorzystanie i wpis w historii
+        vouchera (REA-02). Z 20 równoległych realizacji tej samej pozycji dokładnie jedna kończy się
+        201, a pozostałe 409 (REA-05). Ponowienie z tym samym `Idempotency-Key` zwraca tę samą
+        odpowiedź bez drugiego wpisu (REA-04).
+      parameters:
+        - $ref: '#/components/parameters/VoucherCode'
+        - $ref: '#/components/parameters/ItemId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedemptionRequest'
+            examples:
+              realizacja:
+                value:
+                  partner_booking_ref: A-2026-001234
+      responses:
+        '201':
+          description: Pozycja zrealizowana
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Redemption'
+              examples:
+                czesciowo:
+                  summary: Zostały inne pozycje
+                  value:
+                    item_id: 102
+                    state: redeemed
+                    redeemed_at: '2026-11-14T15:30:00+01:00'
+                    voucher_status: partially_used
+                    remaining_items:
+                      - item_id: 103
+                        service_name: Trening personalny 60 min
+                        state: booked
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/ItemNotOwned'
+        '404':
+          $ref: '#/components/responses/VoucherNotFound'
+        '409':
+          description: Pozycja jest już zrealizowana (REA-03)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                juzZrealizowana:
+                  value:
+                    error:
+                      code: ITEM_ALREADY_REDEEMED
+                      message: Ta pozycja vouchera została już zrealizowana.
+                      request_id: req_01JC8W3Q2V
+        '410':
+          $ref: '#/components/responses/VoucherGone'
+        '422':
+          $ref: '#/components/responses/IdempotencyKeyReused'
+
+  /api/v1/settlements:
+    get:
+      tags: [Rozliczenia]
+      operationId: getSettlement
+      summary: Zestawienie partnera za miesiąc
+      description: |
+        Pozycje zrealizowane przez wywołującego partnera w podanym miesiącu i suma kwot.
+        O miesiącu decyduje data realizacji w strefie Europe/Warsaw (ROZ-03). Partner widzi tylko
+        własne zestawienie, a suma jest równa sumie w eksporcie CSV operatora (ROZ-05).
+      parameters:
+        - name: month
+          in: query
+          required: true
+          description: Miesiąc w formacie RRRR-MM
+          schema:
+            type: string
+            pattern: '^\d{4}-(0[1-9]|1[0-2])$'
+          example: '2026-11'
+      responses:
+        '200':
+          description: Zestawienie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settlement'
+              examples:
+                listopad:
+                  value:
+                    partner_id: A
+                    month: '2026-11'
+                    currency: PLN
+                    total_amount: 15000
+                    items:
+                      - code: VD-7K3M-Q9TX-2HWP
+                        item_id: 102
+                        service_name: Masaż relaksacyjny 60 min
+                        redeemed_at: '2026-11-14T15:30:00+01:00'
+                        partner_booking_ref: A-2026-001234
+                        amount: 15000
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    partnerKey:
+      type: http
+      scheme: bearer
+      description: Klucz API partnera. D przechowuje tylko jego skrót (UPR-01).
+
+  parameters:
+    VoucherCode:
+      name: code
+      in: path
+      required: true
+      description: Kod vouchera
+      schema:
+        type: string
+        pattern: '^VD-[0-9A-Z]{4}-[0-9A-Z]{4}-[0-9A-Z]{4}$'
+      example: VD-7K3M-Q9TX-2HWP
+    ItemId:
+      name: item_id
+      in: path
+      required: true
+      description: Identyfikator pozycji vouchera (liczba całkowita, zgodnie z api/app/routes.volt)
+      schema:
+        type: integer
+        format: int64
+      example: 102
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: Klucz idempotencji (UUID). Powtórzenie z tym samym kluczem zwraca tę samą odpowiedź.
+      schema:
+        type: string
+        format: uuid
+      example: 5f0c1c9e-2b7a-4d8e-9a51-0e6f3b2d7c11
+
+  responses:
+    ValidationError:
+      description: Błędne dane żądania
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            walidacja:
+              value:
+                error:
+                  code: VALIDATION_FAILED
+                  message: Pole service_id jest wymagane.
+                  request_id: req_01JC8W3Q2V
+    Unauthorized:
+      description: Brak klucza API albo błędny klucz (UPR-01)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            brakKlucza:
+              value:
+                error:
+                  code: UNAUTHENTICATED
+                  message: Brak albo błędny klucz API.
+                  request_id: req_01JC8W3Q2V
+    ItemNotOwned:
+      description: Pozycja należy do innego partnera (REA-03)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            cudzaPozycja:
+              value:
+                error:
+                  code: ITEM_NOT_OWNED
+                  message: Ta pozycja należy do innego partnera.
+                  request_id: req_01JC8W3Q2V
+    VoucherNotFound:
+      description: Nieznany kod vouchera albo pozycja
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            nieznanyKod:
+              value:
+                error:
+                  code: VOUCHER_NOT_FOUND
+                  message: Nie ma vouchera o tym kodzie.
+                  request_id: req_01JC8W3Q2V
+            nieznanaPozycja:
+              value:
+                error:
+                  code: ITEM_NOT_FOUND
+                  message: Voucher nie ma takiej pozycji.
+                  request_id: req_01JC8W3Q2V
+    VoucherGone:
+      description: Voucher wygasł albo został anulowany (BLK-02, WAZ-03)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            wygasl:
+              value:
+                error:
+                  code: VOUCHER_EXPIRED
+                  message: Termin ważności vouchera minął.
+                  request_id: req_01JC8W3Q2V
+            anulowany:
+              value:
+                error:
+                  code: VOUCHER_CANCELLED
+                  message: Voucher został anulowany.
+                  request_id: req_01JC8W3Q2V
+    IdempotencyKeyReused:
+      description: Ten sam Idempotency-Key z inną treścią żądania
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            innaTresc:
+              value:
+                error:
+                  code: IDEMPOTENCY_KEY_REUSED
+                  message: Ten klucz idempotencji użyto już z inną treścią żądania.
+                  request_id: req_01JC8W3Q2V
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, request_id]
+          properties:
+            code:
+              type: string
+              description: Kod błędu z kontraktu
+              enum:
+                - VALIDATION_FAILED
+                - UNAUTHENTICATED
+                - FORBIDDEN
+                - NOT_FOUND
+                - CONFLICT
+                - IDEMPOTENCY_KEY_REUSED
+                - INTERNAL_ERROR
+                - SERVICE_UNAVAILABLE
+                - VOUCHER_NOT_FOUND
+                - ITEM_NOT_FOUND
+                - VOUCHER_EXPIRED
+                - VOUCHER_CANCELLED
+                - SERVICE_NOT_OWNED
+                - ITEM_NOT_OWNED
+                - NO_AVAILABLE_ITEM
+                - ITEM_NOT_BOOKED
+                - ITEM_ALREADY_REDEEMED
+                - ITEM_UNDER_CLARIFICATION
+            message:
+              type: string
+              description: Komunikat dla człowieka
+            request_id:
+              type: string
+              description: Identyfikator żądania do szukania w logach
+
+    VoucherStatus:
+      type: string
+      description: Status vouchera wyliczany ze stanów pozycji (POZ-05)
+      enum: [active, partially_used, used, expired, cancelled]
+
+    ItemStateValue:
+      type: string
+      description: Stan pozycji vouchera (POZ-03)
+      enum: [available, booked, redeemed, expired, cancelled]
+
+    Booking:
+      type: object
+      required: [partner_booking_ref]
+      properties:
+        partner_booking_ref:
+          type: string
+          maxLength: 64
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+
+    VoucherItem:
+      type: object
+      required: [item_id, partner_id, service_id, service_name, state]
+      properties:
+        item_id:
+          type: integer
+          format: int64
+        partner_id:
+          type: string
+          enum: [A, B, C]
+        service_id:
+          type: string
+        service_name:
+          type: string
+        state:
+          $ref: '#/components/schemas/ItemStateValue'
+        booking:
+          $ref: '#/components/schemas/Booking'
+
+    Voucher:
+      type: object
+      required: [code, status, valid_until, items]
+      properties:
+        code:
+          type: string
+        status:
+          $ref: '#/components/schemas/VoucherStatus'
+        valid_until:
+          type: string
+          format: date
+          description: Ostatni dzień ważności, voucher jest ważny do 23:59:59 w strefie Europe/Warsaw (WAZ-02)
+        coordinator_partner_id:
+          type: string
+          enum: [C]
+          description: Koordynator pakietu z noclegiem (OFE-05)
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VoucherItem'
+
+    HoldRequest:
+      type: object
+      required: [service_id, partner_booking_ref]
+      properties:
+        service_id:
+          type: string
+        partner_booking_ref:
+          type: string
+          maxLength: 64
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+
+    ItemState:
+      type: object
+      required: [item_id, state]
+      properties:
+        item_id:
+          type: integer
+          format: int64
+        state:
+          $ref: '#/components/schemas/ItemStateValue'
+
+    RedemptionRequest:
+      type: object
+      properties:
+        partner_booking_ref:
+          type: string
+          maxLength: 64
+
+    RemainingItem:
+      type: object
+      required: [item_id, service_name, state]
+      properties:
+        item_id:
+          type: integer
+          format: int64
+        service_name:
+          type: string
+        state:
+          $ref: '#/components/schemas/ItemStateValue'
+
+    Redemption:
+      type: object
+      required: [item_id, state, redeemed_at, voucher_status, remaining_items]
+      properties:
+        item_id:
+          type: integer
+          format: int64
+        state:
+          $ref: '#/components/schemas/ItemStateValue'
+        redeemed_at:
+          type: string
+          format: date-time
+        voucher_status:
+          $ref: '#/components/schemas/VoucherStatus'
+        remaining_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RemainingItem'
+
+    SettlementItem:
+      type: object
+      required: [code, item_id, service_name, redeemed_at, amount]
+      properties:
+        code:
+          type: string
+        item_id:
+          type: integer
+          format: int64
+        service_name:
+          type: string
+        redeemed_at:
+          type: string
+          format: date-time
+        partner_booking_ref:
+          type: string
+        amount:
+          type: integer
+          description: Kwota dla partnera w groszach
+
+    Settlement:
+      type: object
+      required: [partner_id, month, currency, total_amount, items]
+      properties:
+        partner_id:
+          type: string
+          enum: [A, B, C]
+        month:
+          type: string
+          pattern: '^\d{4}-(0[1-9]|1[0-2])$'
+        currency:
+          type: string
+          enum: [PLN]
+        total_amount:
+          type: integer
+          description: Suma kwot w groszach
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettlementItem'
