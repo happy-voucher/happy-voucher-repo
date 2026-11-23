@@ -55,3 +55,4 @@ Strukturę katalogów repozytorium ustala D-07 T1.
 | [model-danych.md](model-danych.md) | Model pojęciowy (encje i relacje) i schemat fizyczny SQLite | D-02 T1 (AN), D-05 (BE) |
 | [api-d.md](api-d.md) | Opis API D dla partnerów: weryfikacja, blokada, realizacja, zestawienia | D-04 (AN), D-18 T6 (AN) |
 | [kontrakt-integracji.md](kontrakt-integracji.md) | Uzgodnienia z A, B, C: formaty, błędy, operacje w API partnerów | D-03 (KP, AN) |
+| [rozliczenia.md](rozliczenia.md) | Reguły rozliczeń: co wliczamy, granice miesiąca, cofnięte realizacje | D-22 T1 (AN) |
