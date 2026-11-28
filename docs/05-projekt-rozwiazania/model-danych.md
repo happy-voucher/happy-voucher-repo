@@ -56,24 +56,7 @@ Schemat fizyczny jest zadeklarowany w [`api/db/schema.volt`](../../api/db/schema
 
 ### Diagram tabel
 
-```mermaid
-erDiagram
-    partners ||--o{ partner_services : "ma"
-    partners |o--o{ offers : "koordynuje pakiet"
-    offers ||--|{ offer_items : "zawiera"
-    partner_services ||--o{ offer_items : "występuje w"
-    offers ||--o{ orders : "jest zamawiana w"
-    orders ||--o{ vouchers : "po opłaceniu tworzy"
-    vouchers ||--|{ voucher_items : "zawiera"
-    partner_services ||--o{ voucher_items : "jest usługą"
-    partners ||--o{ voucher_items : "wykonuje"
-    voucher_items ||--o{ bookings : "ma rezerwacje"
-    voucher_items ||--o{ redemptions : "ma najwyżej jedno aktywne"
-    partners ||--o{ redemptions : "dostaje"
-    partners ||--o{ sync_log : "synchronizacja"
-    vouchers ||--o{ voucher_events : "historia"
-    voucher_items ||--o{ voucher_events : "historia"
-```
+Diagram relacji i kluczy obcych jest na zrzucie [`api/schemat.png`](../../api/schemat.png), wygenerowanym ze schematu.
 
 ### Tabele
 
